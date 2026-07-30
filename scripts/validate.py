@@ -68,6 +68,17 @@ DATE_UNKNOWN = "unknown"
 PROPOSAL_ID_RE = re.compile(r"^\d+$")
 # A provider may not have an NNS proposal yet when the declaration is filed.
 PROPOSAL_ID_PENDING = "pending"
+# The earliest node providers were registered before node-provider onboarding
+# moved to NNS proposals, so no registration proposal exists for them.
+PROPOSAL_ID_NONE = "none"
+PROPOSAL_ID_WORDS = (PROPOSAL_ID_PENDING, PROPOSAL_ID_NONE)
+
+# Documents backfilled from the retired wiki are sometimes incomplete: the wiki
+# page linked to a public company register instead of hosting a document, or
+# hosted no document at all. Those gaps are recorded here so that the required
+# document check can be waived for exactly those providers, while every new
+# submission stays strict. See the file for its format.
+EXCEPTIONS_FILE = "backfill-exceptions.txt"
 
 # README field labels -> internal key.
 FIELD_LABELS = {
@@ -122,6 +133,24 @@ class Report:
 # --------------------------------------------------------------------------
 # helpers
 # --------------------------------------------------------------------------
+
+
+def load_exceptions() -> dict[str, set[str]]:
+    """Read the backfill exception list: '<slug> <doc-type> # reason' per line."""
+    path = REPO_ROOT / EXCEPTIONS_FILE
+    waived: dict[str, set[str]] = {}
+    if not path.is_file():
+        return waived
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if not line:
+            continue
+        parts = line.split()
+        if len(parts) < 2:
+            continue
+        slug, doc_type = parts[0], parts[1]
+        waived.setdefault(slug, set()).add(doc_type)
+    return waived
 
 
 def sha256_file(path: Path) -> str:
@@ -241,7 +270,7 @@ def parse_provider_readme(text: str) -> ProviderReadme:
 # --------------------------------------------------------------------------
 
 
-def validate_provider(slug: str, report: Report) -> None:
+def validate_provider(slug: str, report: Report, waived: dict[str, set[str]] | None = None) -> None:
     directory = REPO_ROOT / PROVIDERS_DIR / slug
     rel_dir = f"{PROVIDERS_DIR}/{slug}"
 
@@ -301,11 +330,19 @@ def validate_provider(slug: str, report: Report) -> None:
     # -- required documents ------------------------------------------------
     if not (directory / "README.md").is_file():
         report.error("required", f"{rel_dir}/README.md", "README.md is missing")
+    exempt = (waived or {}).get(slug, set())
     for doc_type in REQUIRED_DOC_TYPES:
-        if doc_type not in doc_types_present:
-            report.error(
-                "required", rel_dir, f"required document '{doc_type}' is missing"
+        if doc_type in doc_types_present:
+            continue
+        if doc_type in exempt:
+            report.warn(
+                "required",
+                rel_dir,
+                f"required document '{doc_type}' is missing, waived by "
+                f"{EXCEPTIONS_FILE}",
             )
+            continue
+        report.error("required", rel_dir, f"required document '{doc_type}' is missing")
 
     # -- hygiene -----------------------------------------------------------
     total_bytes = 0
@@ -381,14 +418,15 @@ def validate_provider(slug: str, report: Report) -> None:
 
     proposal_id = parsed.fields.get("proposal_id", "")
     if proposal_id and not PLACEHOLDER_RE.search(proposal_id):
-        if proposal_id.lower() != PROPOSAL_ID_PENDING and not PROPOSAL_ID_RE.fullmatch(
-            proposal_id
-        ):
+        # accept a bare number, a markdown link whose text is the number, or one
+        # of the two words
+        bare = re.sub(r"^\[([^\]]*)\]\([^\)]*\)$", r"\1", proposal_id).strip()
+        if bare.lower() not in PROPOSAL_ID_WORDS and not PROPOSAL_ID_RE.fullmatch(bare):
             report.error(
                 "readme",
                 rel_readme,
-                f"NNS registration proposal ID must be a number or "
-                f"'{PROPOSAL_ID_PENDING}', got '{proposal_id}'",
+                "NNS registration proposal ID must be a number, "
+                f"'{PROPOSAL_ID_PENDING}' or '{PROPOSAL_ID_NONE}', got '{proposal_id}'",
             )
 
     if not parsed.has_manifest_table:
@@ -556,8 +594,9 @@ def main() -> int:
         print(f"  - {PROVIDERS_DIR}/{slug}")
     print()
 
+    waived = load_exceptions()
     for slug in slugs:
-        validate_provider(slug, report)
+        validate_provider(slug, report, waived)
 
     return report.emit()
 

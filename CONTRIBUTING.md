@@ -90,7 +90,9 @@ Your `README.md` must contain:
 - **Node provider principal** — your node-provider principal;
 - **NNS registration proposal ID** — the proposal that registers you as a node
   provider. If you have not submitted it yet, write `pending` and open a
-  follow-up pull request with the ID once the proposal exists;
+  follow-up pull request with the ID once the proposal exists. (A handful of
+  backfilled providers were registered before node-provider onboarding moved to
+  NNS proposals; their READMEs say `none`.);
 - **Document manifest** — a table listing every file in your directory (except
   `README.md`) with its doc-type, date and SHA-256 hash.
 
@@ -121,10 +123,15 @@ This runs exactly the checks that run in CI:
 | --- | --- |
 | structure | changes sit in `node-providers/<slug>/`, slug is kebab-case, no subdirectories |
 | naming | every file is `<slug>-<doc-type>.<ext>` |
-| required | `README.md`, self-declaration and proof-of-identity are present |
+| required | `README.md`, self-declaration and proof-of-identity are present [^1] |
 | readme | provider name, principal and proposal ID are present and well formed |
 | checksums | recomputed SHA-256 matches the manifest; no unlisted and no missing files |
 | hygiene | allowed file types only, max 20 MiB per file, contents match the extension |
+
+[^1]: A few declarations backfilled from the retired wiki are missing a document
+that the wiki never hosted. Those gaps are listed in
+[backfill-exceptions.txt](backfill-exceptions.txt), where CI reads them and
+reports a warning instead of a failure. The list is closed to new submissions.
 
 ## 6. Open the pull request
 

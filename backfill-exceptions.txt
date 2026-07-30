@@ -1,0 +1,15 @@
+# Waived required documents for declarations backfilled from the retired wiki.
+#
+# The wiki did not always host a complete set of documents: some pages linked to
+# a public company register instead of hosting a proof of identity, and a few
+# pages carried no document at all. Those providers are recorded here so that
+# CI reports the gap as a warning instead of a failure.
+#
+# This list is for the backfill only. Every new submission must supply both the
+# self-declaration and a proof of identity; do not add entries for new
+# providers. When a provider supplies the missing document, delete their line.
+#
+# Format, one waiver per line:
+#   <provider-slug> <doc-type>   # reason
+#
+# (Populated by the wiki backfill; empty until then.)

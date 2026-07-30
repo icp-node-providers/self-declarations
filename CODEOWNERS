@@ -1,0 +1,21 @@
+# Every pull request needs an approval from a reviewer listed here before it can
+# be merged. Reviewers check that the submission is well formed and that nothing
+# harmful is merged into the main branch. They do not vouch for the truthfulness
+# of a self-declaration.
+#
+# TODO(before pushing upstream): replace the placeholder team below with the
+# real GitHub team or the individual handles of the reviewers.
+
+*                       @icp-node-providers/self-declaration-reviewers
+
+# Repository mechanics (CI, templates, contribution guide) are owned by the same
+# reviewers; listing them explicitly keeps the intent obvious.
+/.github/               @icp-node-providers/self-declaration-reviewers
+/scripts/               @icp-node-providers/self-declaration-reviewers
+/templates/             @icp-node-providers/self-declaration-reviewers
+/CODEOWNERS             @icp-node-providers/self-declaration-reviewers
+
+# Optionally, a node provider can be added as an owner of their own directory so
+# that they are always asked to review changes to their own documents, e.g.:
+#
+# /node-providers/example-provider-llc/  @icp-node-providers/self-declaration-reviewers @example-provider-handle

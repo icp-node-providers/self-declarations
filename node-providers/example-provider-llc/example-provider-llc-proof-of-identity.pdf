@@ -1,0 +1,48 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 630 >>
+stream
+BT
+/F1 12 Tf
+14 TL
+1 0 0 1 56 760 Tm
+(EXAMPLE DOCUMENT - NOT A REAL PROOF OF IDENTITY) Tj T*
+(===============================================) Tj T*
+() Tj T*
+(This placeholder PDF exists so that the example provider directory is) Tj T*
+(complete and so that the CI checks can be demonstrated end to end.) Tj T*
+() Tj T*
+(A real submission replaces this file with a proof of identity of the legal) Tj T*
+(entity, for example an extract from the commercial register of the) Tj T*
+(jurisdiction in which the entity is incorporated.) Tj T*
+() Tj T*
+(Node provider: Example Provider LLC \(fictional\)) Tj T*
+(Date: 2024-03-15) Tj T*
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000241 00000 n 
+0000000311 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+992
+%%EOF

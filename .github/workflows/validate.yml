@@ -1,0 +1,40 @@
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate submissions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the pull request head
+        uses: actions/checkout@v4
+        with:
+          # Full history so the script can diff against the base branch.
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # On a pull request only the touched provider directories are checked, so
+      # a submission is never blocked by a pre-existing problem elsewhere in the
+      # repository. On main everything is re-checked.
+      - name: Validate changed provider directories
+        if: github.event_name == 'pull_request'
+        run: |
+          BASE="${{ github.base_ref }}"
+          git fetch --no-tags origin "+refs/heads/$BASE:refs/remotes/origin/$BASE"
+          python3 scripts/validate.py --changed-from "origin/$BASE"
+
+      - name: Validate all provider directories
+        if: github.event_name != 'pull_request'
+        run: python3 scripts/validate.py --all

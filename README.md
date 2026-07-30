@@ -8,14 +8,14 @@ artefacts here, and then references those files and their SHA-256 hashes in thei
 NNS node-provider registration proposal. Anyone can re-compute the hashes from
 this repository and compare them with the hashes in the proposal.
 
-This replaces the retired `internetcomputer.mywikis.net` wiki, which previously
+This replaces the retired `wiki.internetcomputer.org` wiki, which previously
 hosted these documents. The declarations that were on the wiki have been
 backfilled here.
 
 > **Note:** Reviewers of this repository check that a submission is complete,
 > correctly named and free of harmful content. They do **not** verify or vouch
 > for the truthfulness of the statements a node provider makes in their
-> declaration. There is no audit.
+> declaration. There is currently no audit.
 
 ## Repository layout
 
@@ -61,6 +61,10 @@ Every document is named:
   `auditor-confirmation`;
 - `<ext>` — `pdf` is preferred for signed documents (`md`, `png`, `jpg` are also
   accepted).
+
+File names carry no date; the date of each document is recorded in the manifest.
+If a provider has more than one document of the same doc-type, the second and
+further ones get a numeric suffix: `<provider-slug>-<doc-type>-2.<ext>`.
 
 ## How to submit
 

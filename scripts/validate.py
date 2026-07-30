@@ -63,6 +63,8 @@ MAGIC_BYTES = {
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+# Backfilled documents do not always carry a reliable date.
+DATE_UNKNOWN = "unknown"
 PROPOSAL_ID_RE = re.compile(r"^\d+$")
 # A provider may not have an NNS proposal yet when the declaration is filed.
 PROPOSAL_ID_PENDING = "pending"
@@ -273,8 +275,11 @@ def validate_provider(slug: str, report: Report) -> None:
     documents = [f for f in files if f.name != "README.md"]
 
     # -- naming ------------------------------------------------------------
+    # <slug>-<doc-type>.<ext>, with an optional -<n> suffix for the second and
+    # further documents of the same doc-type.
     name_re = re.compile(
-        rf"^{re.escape(slug)}-({'|'.join(DOC_TYPES)})\.({'|'.join(ALLOWED_EXTENSIONS)})$"
+        rf"^{re.escape(slug)}-({'|'.join(DOC_TYPES)})(-[2-9]\d*)?"
+        rf"\.({'|'.join(ALLOWED_EXTENSIONS)})$"
     )
     doc_types_present: dict[str, list[str]] = {}
     for document in documents:
@@ -284,21 +289,14 @@ def validate_provider(slug: str, report: Report) -> None:
             report.error(
                 "naming",
                 rel,
-                "filename must be <provider-slug>-<doc-type>.<ext> with slug "
-                f"'{slug}', doc-type one of {', '.join(DOC_TYPES)} and extension "
-                f"one of {', '.join(ALLOWED_EXTENSIONS)}",
+                "filename must be <provider-slug>-<doc-type>.<ext> (optionally "
+                "<provider-slug>-<doc-type>-<n>.<ext> for further documents of the "
+                f"same type) with slug '{slug}', doc-type one of "
+                f"{', '.join(DOC_TYPES)} and extension one of "
+                f"{', '.join(ALLOWED_EXTENSIONS)}",
             )
             continue
         doc_types_present.setdefault(match.group(1), []).append(document.name)
-
-    for doc_type, names in sorted(doc_types_present.items()):
-        if len(names) > 1:
-            report.error(
-                "naming",
-                rel_dir,
-                f"doc-type '{doc_type}' appears more than once ({', '.join(names)}); "
-                "the naming convention allows a single file per doc-type",
-            )
 
     # -- required documents ------------------------------------------------
     if not (directory / "README.md").is_file():
@@ -421,11 +419,12 @@ def validate_provider(slug: str, report: Report) -> None:
                 f"'{row.filename}': doc-type '{row.doc_type}' is not one of "
                 f"{', '.join(DOC_TYPES)}",
             )
-        if not DATE_RE.fullmatch(row.date):
+        if not DATE_RE.fullmatch(row.date) and row.date.lower() != DATE_UNKNOWN:
             report.error(
                 "readme",
                 rel_readme,
-                f"'{row.filename}': date '{row.date}' must be ISO 8601 (YYYY-MM-DD)",
+                f"'{row.filename}': date '{row.date}' must be ISO 8601 (YYYY-MM-DD) "
+                f"or '{DATE_UNKNOWN}'",
             )
         if not SHA256_RE.fullmatch(row.sha256):
             report.error(

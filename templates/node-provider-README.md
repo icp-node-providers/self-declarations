@@ -29,7 +29,8 @@ every entry must point at a file that exists.
   file      the file name, as in this directory
   doc-type  self-declaration | proof-of-identity | excess-node-handover |
             proof-of-hardware-order | addendum | auditor-confirmation
-  date      the date of the document itself (signature date), ISO 8601
+  date      the date of the document itself (signature date), ISO 8601, or
+            `unknown` if the document carries no reliable date
   SHA-256   shasum -a 256 <file>   (macOS)
             sha256sum <file>       (Linux)
 -->

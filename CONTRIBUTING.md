@@ -64,6 +64,14 @@ Every file follows:
 File names carry no date. The date of each document goes into the manifest in
 your `README.md`.
 
+If you have more than one document of the same doc-type — say two addenda — the
+second and further ones get a numeric suffix:
+
+```
+example-provider-llc-addendum.pdf
+example-provider-llc-addendum-2.pdf
+```
+
 Example:
 
 ```

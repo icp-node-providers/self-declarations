@@ -12,4 +12,18 @@
 # Format, one waiver per line:
 #   <provider-slug> <doc-type>   # reason
 #
-# (Populated by the wiki backfill; empty until then.)
+anonstake                          proof-of-identity  # public register linked in the provider README
+aspire-properties                  proof-of-identity  # public register linked in the provider README
+blockchain-development-labs        proof-of-identity  # public register linked in the provider README
+coplus-limited                     proof-of-identity  # public register linked in the provider README
+honeycomb-capital-pty-ltd          proof-of-identity  # no such document on the wiki page
+infoobjects                        proof-of-identity  # public register linked in the provider README
+krishna-enterprises                proof-of-identity  # combined into the self-declaration document
+mb-patrankos-suvis                 proof-of-identity  # public register linked in the provider README
+ml-solutions-ltd                   proof-of-identity  # public register linked in the provider README
+novisystems-llc                    proof-of-identity  # public register linked in the provider README
+pindar-technology-limited          proof-of-identity  # public register linked in the provider README
+privoxy-solutions-llc              proof-of-identity  # public register linked in the provider README
+rivram-inc                         proof-of-identity  # public register linked in the provider README
+wancloud-limited                   proof-of-identity  # public register linked in the provider README
+zondax-ag                          proof-of-identity  # no such document on the wiki page

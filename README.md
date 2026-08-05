@@ -1,4 +1,4 @@
-# Internet Computer node-provider self-declarations
+# Internet Computer Node Provider Self-Declarations
 
 This repository is the public home of the **self-declarations** and supporting
 documents of Internet Computer node providers.

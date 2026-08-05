@@ -2,9 +2,6 @@
 # be merged. Reviewers check that the submission is well formed and that nothing
 # harmful is merged into the main branch. They do not vouch for the truthfulness
 # of a self-declaration.
-#
-# TODO(before pushing upstream): replace the placeholder team below with the
-# real GitHub team or the individual handles of the reviewers.
 
 *                       @icp-node-providers/self-declaration-reviewers
 

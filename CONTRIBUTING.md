@@ -10,8 +10,11 @@ You need:
 
 - a GitHub account;
 - your **self-declaration**, signed (PDF);
-- a **proof of identity** for your legal entity, e.g. an extract from the
-  commercial register of the jurisdiction where the entity is incorporated (PDF);
+- a **proof of identity** for your legal entity — any document that sufficiently
+  proves to the community that the identities listed in your declaration exist in
+  the real world, e.g. an extract from the commercial register of the jurisdiction
+  where the entity is incorporated, a certificate of incorporation, or an
+  equivalent official record (PDF);
 - your **node-provider principal** (the principal you will register, or have
   registered, with the NNS);
 - optionally: an excess-node handover statement, a proof of hardware order, an
@@ -42,9 +45,45 @@ mkdir -p node-providers/<your-slug>
 cp templates/node-provider-README.md node-providers/<your-slug>/README.md
 ```
 
-`templates/node-provider-self-declaration.md` is the outline of what a
-self-declaration is expected to cover. Use it as the basis for the document you
-sign, and add the signed PDF to your directory.
+### Filling in the self-declaration
+
+[templates/node-provider-self-declaration.md](templates/node-provider-self-declaration.md)
+is the self-declaration form. Complete all of it — everything you write into the
+form is public information that gets published in this repository:
+
+- **(A) Statement of identity** — your entity's details. The country must not be
+  a sanctioned country.
+- **(B), (C) and (D)** — keep these statements as they are; they are the substance
+  of the declaration. Insert your legal entity name where (D) asks for it.
+- **Q1–Q5, assessment of independence** — answer every question. Where a question
+  does not apply to you, write `none` rather than leaving it blank.
+- **Signatures** — the representative(s) authorized to sign on behalf of the UBOs
+  or the persons exercising effective control sign the form.
+
+Then export it as a PDF, digitally signed if possible, and add it to your
+directory as `<provider-slug>-self-declaration.pdf`. Submit the signed PDF, not
+the markdown file.
+
+You commit to updating your self-declaration if anything material changes, for
+example a change in the UBO — see
+[Updating an existing declaration](#updating-an-existing-declaration).
+
+### Private disclosure (for a potential audit)
+
+After submission, your declaration **might** be reviewed by an auditor, who will
+request additional documents for private disclosure in order to verify the
+accuracy of your public statements. Those documents are **not** committed to this
+repository. Have them ready:
+
+| Form section | What an auditor may request |
+| --- | --- |
+| (A) Statement of identity | Supporting documentation (e.g. government-issued IDs, corporate records) verifying the publicly disclosed identity information and the representative's position within the entity. |
+| (B) Provision of node machines | Documentation verifying hardware ownership (e.g. receipts that include hardware specifications), plus evidence of the contracts between you and the data centre and internet service providers. |
+| (D) Lawful source of funds and wealth | The origin of the funds used to establish and operate the node provider (personal savings, business income, inheritance, investments) and the origin of wealth (ownership of a business, inheritance, sale of property), with documentation that lets an auditor verify their legitimacy — bank statements, tax statements, audited financial statements, transaction histories or notarized statements. |
+| Q1 Ownership and control | An ownership and control structure chart plus corporate records, covering every intermediary up to the top and listing all UBOs and persons exercising effective control, and documentation (e.g. government-issued IDs) verifying their identities. For a trust structure, the identity of the beneficiaries, settlor, trustee and protector of the trust. |
+| Q3 Family ties | Evidence of the declared relationships. |
+| Q4 Corporate structure | The related ownership or control structure chart, as per Q1. |
+| Q5 Overlap of financing | The identity of the lending entity and all relevant documentation concerning the debt; if the lender is not a publicly listed bank or a well-established financial institution, the name of the lending entity's UBO. |
 
 ## 3. Name your documents
 

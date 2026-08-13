@@ -15,7 +15,51 @@ backfilled here.
 > **Note:** Reviewers of this repository check that a submission is complete,
 > correctly named and free of harmful content. They do **not** verify or vouch
 > for the truthfulness of the statements a node provider makes in their
-> declaration. There is currently no audit.
+> declaration. A declaration might separately be reviewed by an auditor, who
+> requests supporting documents privately — see
+> [CONTRIBUTING.md](CONTRIBUTING.md#private-disclosure-for-a-potential-audit).
+
+## Why node providers self-declare
+
+The Network Nervous System is committed to the principles of decentralization to
+enhance the overall security and reliability of the ICP network. Moreover, node
+machines must not be funded or controlled by criminal entities, as these critical
+infrastructure components form the foundation upon which the integrity of the
+entire ecosystem depends. To achieve these goals, comprehensive disclosures from
+node providers are required. In particular, node providers are required to:
+
+- confirm their identity;
+- commit to providing the required hardware and honest operations, as specified
+  in the ICP Network guidelines;
+- confirm lawful source of funds and source of wealth;
+- assess potential overlaps with other node providers.
+
+As part of the governance structure, the Network Nervous System may vote to:
+
+- remove node providers that violate these principles or provide untruthful
+  responses;
+- appoint legal representation to pursue such node providers.
+
+## What the self-declaration covers
+
+The form in
+[templates/node-provider-self-declaration.md](templates/node-provider-self-declaration.md)
+has two parts:
+
+- **Identity and compliance declarations** — the statement of identity (A), the
+  guarantee to provide node machines per the required hardware configuration (B),
+  the statement of good intent (C), and the confirmation of a lawful source of
+  funds and wealth (D).
+- **Assessment of independence** — ultimate beneficial ownership and control
+  (Q1), and any overlap with other node providers through common owners (Q2),
+  family ties (Q3), corporate structure (Q4) or financing (Q5).
+
+Everything a node provider writes into the form is **public**: it is published in
+this repository. The evidence that backs those statements up — corporate records,
+IDs, bank statements, hardware receipts — is **private**: it is shared only with
+an auditor, if one is assigned, and is never committed here. See
+[CONTRIBUTING.md](CONTRIBUTING.md#private-disclosure-for-a-potential-audit) for
+what that evidence consists of.
 
 ## Repository layout
 

@@ -91,6 +91,15 @@ what that evidence consists of.
 | Auditor confirmation letter | optional | `auditor-confirmation` |
 | Addendum to a declaration | optional | `addendum` |
 
+Both required documents are required of **every new submission**. 15 of the
+providers backfilled from the wiki have no proof of identity, because the wiki
+page linked to a public company register instead of hosting a document, or folded
+the identity proof into the declaration. Each of those directories says so in its
+README, and every one of them is listed in
+[backfill-exceptions.txt](backfill-exceptions.txt), where CI reads them and
+reports a warning instead of a failure. That list is closed: it covers the
+backfill only and takes no new entries.
+
 ### Naming convention
 
 Every document is named:
@@ -103,8 +112,8 @@ Every document is named:
 - `<doc-type>` — one of `self-declaration`, `proof-of-identity`,
   `excess-node-handover`, `proof-of-hardware-order`, `addendum`,
   `auditor-confirmation`;
-- `<ext>` — `pdf` is preferred for signed documents (`md`, `png`, `jpg` are also
-  accepted).
+- `<ext>` — `pdf` is preferred for signed documents (`md`, `png`, `jpg` and
+  `jpeg` are also accepted).
 
 File names carry no date; the date of each document is recorded in the manifest.
 If a provider has more than one document of the same doc-type, the second and
@@ -127,18 +136,30 @@ the NNS proposal:
 
 ```sh
 cd node-providers/<provider-slug>
-shasum -a 256 *          # macOS
-sha256sum *              # Linux
+shasum -a 256 * | grep -v ' README.md$'    # macOS
+sha256sum * | grep -v ' README.md$'        # Linux
 ```
 
-Compare the output with the manifest in that directory's `README.md` and with
-the hashes in the NNS registration proposal linked from it.
+`README.md` is filtered out because it holds the manifest and so cannot list its
+own hash. Compare the output with the manifest in that directory's `README.md`
+and with the hashes in the NNS registration proposal linked from it.
+
+Two things to expect when comparing against a proposal. A directory often holds
+**more** documents than its proposal hashed, because addenda and later documents
+were added after the registration vote. And a handful of providers have a
+documented mismatch, recorded under a *Known discrepancy* heading in their own
+README rather than left for you to discover.
 
 ## Index of node providers
 
 The 101 node providers below were backfilled from the retired wiki on
-2026-07-30 and matched to their on-chain registration proposals. `none` means the
-provider was registered before node-provider onboarding moved to NNS proposals.
+2026-07-30 and matched to their on-chain registration proposals.
+
+Two values can appear instead of a proposal number: **`none`** means the provider
+was registered before node-provider onboarding moved to NNS proposals, so no
+registration proposal exists for it, and **`pending`** means the declaration was
+published before its registration proposal was submitted, and the ID is filled in
+once the proposal exists.
 
 `example-provider-llc/` is a template example, not a node provider.
 

@@ -19,6 +19,8 @@ Checks performed (all blocking):
               listed-but-missing files
   hygiene     allowed file types only, no oversized binaries, contents match
               the extension
+  shared      the same file does not appear in two provider directories, which
+              is an error for a declaration or an identity proof
 """
 
 from __future__ import annotations
@@ -498,6 +500,68 @@ def validate_provider(slug: str, report: Report, waived: dict[str, set[str]] | N
 
 
 # --------------------------------------------------------------------------
+# cross-provider checks
+# --------------------------------------------------------------------------
+
+# Two providers legitimately publish the same document when it is a statement
+# they both signed — an excess-node handover between the two of them. Nobody
+# legitimately shares a declaration or an identity proof.
+UNIQUE_DOC_TYPES = ("self-declaration", "proof-of-identity")
+
+
+def check_no_shared_documents(report: Report, slugs: list[str]) -> None:
+    """Flag one document appearing in more than one provider directory.
+
+    A backfill mistake put one provider's identity proof into another provider's
+    directory; identical bytes under two providers is the signature of that class
+    of error, so it is checked repository-wide.
+    """
+    root = REPO_ROOT / PROVIDERS_DIR
+    if not root.is_dir():
+        return
+    by_digest: dict[str, list[tuple[str, str]]] = {}
+    for provider in sorted(p for p in root.iterdir() if p.is_dir()):
+        for document in sorted(provider.iterdir()):
+            if not document.is_file() or document.name == "README.md":
+                continue
+            by_digest.setdefault(sha256_file(document), []).append(
+                (provider.name, document.name)
+            )
+
+    touched = set(slugs)
+    for digest, owners in sorted(by_digest.items()):
+        if len(owners) < 2:
+            continue
+        # only report where the pull request is involved, so unrelated
+        # pre-existing pairs do not fail someone else's submission
+        if touched and not any(slug in touched for slug, _ in owners):
+            continue
+        where = ", ".join(f"{PROVIDERS_DIR}/{s}/{n}" for s, n in owners)
+        doc_types = {
+            re.sub(rf"^{re.escape(s)}-|(-\d+)?\.\w+$", "", n) for s, n in owners
+        }
+        unique_required = doc_types & set(UNIQUE_DOC_TYPES)
+        message = (
+            f"the same file ({digest[:12]}...) appears in several provider "
+            f"directories: {where}"
+        )
+        if unique_required:
+            report.error(
+                "shared-document",
+                f"{PROVIDERS_DIR}/{owners[0][0]}/{owners[0][1]}",
+                f"{message}. A {'/'.join(sorted(unique_required))} belongs to one "
+                "provider only — check that each directory holds its own document",
+            )
+        else:
+            report.warn(
+                "shared-document",
+                f"{PROVIDERS_DIR}/{owners[0][0]}/{owners[0][1]}",
+                f"{message}. This is expected for a statement both parties signed, "
+                "such as an excess-node handover; confirm that is the case here",
+            )
+
+
+# --------------------------------------------------------------------------
 # target selection
 # --------------------------------------------------------------------------
 
@@ -597,6 +661,7 @@ def main() -> int:
     waived = load_exceptions()
     for slug in slugs:
         validate_provider(slug, report, waived)
+    check_no_shared_documents(report, slugs if not args.all else [])
 
     return report.emit()
 

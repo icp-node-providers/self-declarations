@@ -4,7 +4,10 @@
 | --- | --- |
 | **Node provider name** | Bigger Capital |
 | **Node provider principal** | `7a4u2-gevsy-5c5fs-hsgri-n2kdz-dxxwf-btcfp-jykro-l4y7c-7xky2-aqe` |
-| **NNS registration proposal ID** | [135018](https://dashboard.internetcomputer.org/proposal/135018) |
+| **NNS registration proposal ID** | none |
+
+This provider was registered before node-provider onboarding moved to NNS
+proposals; no `AddOrRemoveNodeProvider` registration proposal exists for it.
 
 ## Document manifest
 
@@ -17,4 +20,4 @@
 
 ## Context on NNS Proposal 135018
 
-Executed NNS proposal [135018](https://dashboard.internetcomputer.org/proposal/135018) assigned Node Operator `gv77f-r7ahj-gkbd3-6il3n-lfgb5-3ojpt-uxydp-5rdls-4xqam-upxju-2ae` for Node Provider `7a4u2-gevsy-5c5fs-hsgri-n2kdz-dxxwf-btcfp-jykro-l4y7c-7xky2-aqe` (*Bigger Capital*) to operate 28 nodes in data center `aw1`. The proposal explicitly references the self-declaration documentation hosted on the ICP Wiki (`https://wiki.internetcomputer.org/wiki/Bigger_Capital`), which has been preserved in this directory.
+Executed NNS proposal [135018](https://dashboard.internetcomputer.org/proposal/135018) assigned a new HSM-less Node Operator (`gv77f-r7ahj-gkbd3-6il3n-lfgb5-3ojpt-uxydp-5rdls-4xqam-upxju-2ae`) to Node Provider `7a4u2-gevsy-5c5fs-hsgri-n2kdz-dxxwf-btcfp-jykro-l4y7c-7xky2-aqe` (*Bigger Capital*) for adding 28 nodes in data center `aw1`. The proposal explicitly references the self-declaration documentation hosted on the ICP Wiki (`https://wiki.internetcomputer.org/wiki/Bigger_Capital`), which has been preserved in this directory.

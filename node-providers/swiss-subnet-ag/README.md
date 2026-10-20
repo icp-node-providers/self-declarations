@@ -4,7 +4,7 @@
 | --- | --- |
 | **Node provider name** | Swiss Subnet AG |
 | **Node provider principal** | `wsxmh-6v6dh-ellrc-2fcag-peoni-l7k6q-sok75-pgw5g-3wwzw-pwm6z-eae` |
-| **NNS registration proposal ID** | pending |
+| **NNS registration proposal ID** | [144508](https://dashboard.internetcomputer.org/proposal/144508) |
 
 ## Document manifest
 

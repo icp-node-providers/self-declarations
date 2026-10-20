@@ -150,7 +150,15 @@ documents.
 See [node-providers/example-provider-llc/README.md](node-providers/example-provider-llc/README.md)
 for a filled-in example.
 
-## 5. Check your submission locally
+## 5. Add yourself to the index
+
+The [index of node providers](README.md#index-of-node-providers) in the root
+`README.md` lists every provider directory. Add one row for yourself, in
+alphabetical order by provider name, carrying the same name, principal and
+proposal ID you put in your own README. If your proposal ID is `pending`, the
+index says `pending` too, and the follow-up pull request updates both.
+
+## 6. Check your submission locally
 
 ```sh
 python3 scripts/validate.py --all
@@ -166,13 +174,14 @@ This runs exactly the checks that run in CI:
 | readme | provider name, principal and proposal ID are present and well formed |
 | checksums | recomputed SHA-256 matches the manifest; no unlisted and no missing files |
 | hygiene | allowed file types only, max 20 MiB per file, contents match the extension |
+| index | your row in the root README index exists and matches your own README |
 
 [^1]: A few declarations backfilled from the retired wiki are missing a document
 that the wiki never hosted. Those gaps are listed in
 [backfill-exceptions.txt](backfill-exceptions.txt), where CI reads them and
 reports a warning instead of a failure. The list is closed to new submissions.
 
-## 6. Open the pull request
+## 7. Open the pull request
 
 Push your branch and open a pull request. Fill in the pull-request template and
 tick the checklist. Then:

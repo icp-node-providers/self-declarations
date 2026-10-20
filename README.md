@@ -127,7 +127,8 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the full walk-through. In short:
 2. Copy the files from [templates/](templates/) into it and fill them in.
 3. Add your signed documents, named per the convention above.
 4. List every file with its SHA-256 hash in your `README.md` manifest.
-5. Run `python3 scripts/validate.py --all` and open a pull request.
+5. Add a row for yourself to the [index](#index-of-node-providers) below.
+6. Run `python3 scripts/validate.py --all` and open a pull request.
 
 ## Verifying a declaration
 
@@ -152,8 +153,9 @@ README rather than left for you to discover.
 
 ## Index of node providers
 
-The 101 node providers below were backfilled from the retired wiki on
-2026-07-30 and matched to their on-chain registration proposals.
+Every node provider with a directory in this repository is listed below. Of
+these, 101 were backfilled from the retired wiki on 2026-07-30 and matched to
+their on-chain registration proposals. The rest were submitted directly here.
 
 Two values can appear instead of a proposal number: **`none`** means the provider
 was registered before node-provider onboarding moved to NNS proposals, so no
@@ -252,6 +254,7 @@ once the proposal exists.
 | SolNet | [solnet](node-providers/solnet/) | `mf6om-4m4yc-36jur-ip35a-6d3yr-kqi7v-txofz-nraz3-f6a4l-dcufx-oqe` | [138471](https://dashboard.internetcomputer.org/proposal/138471) |
 | Starbase | [starbase](node-providers/starbase/) | `sixix-2nyqd-t2k2v-vlsyz-dssko-ls4hl-hyij4-y7mdp-ja6cj-nsmpf-yae` | none |
 | Swiss Datalink AG | [swiss-datalink-ag](node-providers/swiss-datalink-ag/) | `hycj4-e3jwh-l2bqz-ohuxh-tu4af-agzov-uugg6-j57rk-b6opc-fx3ml-kqe` | [138385](https://dashboard.internetcomputer.org/proposal/138385) |
+| Swiss Subnet AG | [swiss-subnet-ag](node-providers/swiss-subnet-ag/) | `wsxmh-6v6dh-ellrc-2fcag-peoni-l7k6q-sok75-pgw5g-3wwzw-pwm6z-eae` | [144508](https://dashboard.internetcomputer.org/proposal/144508) |
 | Sygnum Bank | [sygnum-bank](node-providers/sygnum-bank/) | `6r5lw-l7db7-uwixn-iw5en-yy55y-ilbtq-e6gcv-g22r2-j3g6q-y37jk-jqe` | none |
 | The Fenex Company LLC | [the-fenex-company-llc](node-providers/the-fenex-company-llc/) | `b7yyj-o7vc6-hdbzl-eggkm-bp2hg-3jmcv-5j5nn-t6zkq-ino4b-cvyde-yqe` | [127697](https://dashboard.internetcomputer.org/proposal/127697) |
 | Uvaca Labs LLC | [uvaca-labs-llc](node-providers/uvaca-labs-llc/) | `dodsd-rsjlg-sgekb-gr6mi-l6fck-tscwk-4jzgl-fwk4q-ncoyu-ulx53-aqe` | [134532](https://dashboard.internetcomputer.org/proposal/134532) |

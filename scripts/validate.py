@@ -21,6 +21,8 @@ Checks performed (all blocking):
               the extension
   shared      the same file does not appear in two provider directories, which
               is an error for a declaration or an identity proof
+  index       the provider has a row in the index in the root README, and that
+              row repeats the name, principal and proposal ID of its own README
 """
 
 from __future__ import annotations
@@ -81,6 +83,12 @@ PROPOSAL_ID_WORDS = (PROPOSAL_ID_PENDING, PROPOSAL_ID_NONE)
 # document check can be waived for exactly those providers, while every new
 # submission stays strict. See the file for its format.
 EXCEPTIONS_FILE = "backfill-exceptions.txt"
+
+# The index of node providers in the root README. Every provider directory has a
+# row there, so the front page cannot silently fall behind the directories.
+ROOT_README = "README.md"
+# ... except the template example, which is not a node provider.
+INDEX_EXEMPT_SLUGS = ("example-provider-llc",)
 
 # README field labels -> internal key.
 FIELD_LABELS = {
@@ -500,6 +508,126 @@ def validate_provider(slug: str, report: Report, waived: dict[str, set[str]] | N
 
 
 # --------------------------------------------------------------------------
+# root index
+# --------------------------------------------------------------------------
+
+
+@dataclass
+class IndexRow:
+    name: str
+    principal: str
+    proposal_id: str
+
+
+INDEX_LINK_RE = re.compile(rf"{PROVIDERS_DIR}/([a-z0-9-]+)/?")
+
+
+def parse_index(text: str) -> list[tuple[str, IndexRow]]:
+    """Rows of the index table in the root README, as (slug, row) pairs.
+
+    Pairs rather than a dict, so that a slug listed twice stays visible.
+    """
+    rows: list[tuple[str, IndexRow]] = []
+    for table in parse_tables(text):
+        header = [normalise_label(c) for c in table[0]]
+        is_index = (
+            len(header) >= 4
+            and "node provider" in header[0]
+            and "directory" in header[1]
+        )
+        if not is_index:
+            continue
+        for row in table[1:]:
+            if len(row) < 4:
+                continue
+            link = INDEX_LINK_RE.search(row[1])
+            if not link:
+                continue
+            rows.append(
+                (
+                    link.group(1),
+                    IndexRow(
+                        name=clean_cell(row[0]),
+                        principal=clean_cell(row[2]),
+                        proposal_id=clean_cell(row[3]),
+                    ),
+                )
+            )
+    return rows
+
+
+def check_index(report: Report, slugs: list[str], check_stale: bool) -> None:
+    """Check the index in the root README against the provider directories.
+
+    The index is the front page's list of who is in this repository. It is
+    maintained by hand, so without a check it falls behind the directories
+    silently, and a provider who is here but not listed looks like one who is
+    not here at all.
+    """
+    readme = REPO_ROOT / ROOT_README
+    if not readme.is_file():
+        report.error("index", ROOT_README, "the root README.md is missing")
+        return
+    listed_rows = parse_index(readme.read_text(encoding="utf-8"))
+    if not listed_rows:
+        report.error(
+            "index", ROOT_README, "the index of node providers table is missing or empty"
+        )
+        return
+    rows: dict[str, IndexRow] = {}
+    duplicated: set[str] = set()
+    for slug, row in listed_rows:
+        if slug in rows:
+            duplicated.add(slug)
+            continue
+        rows[slug] = row
+
+    for slug in slugs:
+        if slug in INDEX_EXEMPT_SLUGS:
+            continue
+        if slug in duplicated:
+            report.error(
+                "index", ROOT_README, f"'{slug}' has more than one row in the index"
+            )
+        row = rows.get(slug)
+        if row is None:
+            report.error(
+                "index",
+                ROOT_README,
+                f"'{slug}' has no row in the index of node providers "
+                "(see CONTRIBUTING.md, step 5)",
+            )
+            continue
+        provider_readme = REPO_ROOT / PROVIDERS_DIR / slug / "README.md"
+        if not provider_readme.is_file():
+            continue
+        parsed = parse_provider_readme(provider_readme.read_text(encoding="utf-8"))
+        for label, listed, declared in (
+            ("name", row.name, parsed.fields.get("name", "")),
+            ("principal", row.principal, parsed.fields.get("principal", "")),
+            ("proposal ID", row.proposal_id, parsed.fields.get("proposal_id", "")),
+        ):
+            if declared and listed != declared:
+                report.error(
+                    "index",
+                    ROOT_README,
+                    f"'{slug}': the index says {label} '{listed}', "
+                    f"{PROVIDERS_DIR}/{slug}/README.md says '{declared}'",
+                )
+
+    # A row whose directory is gone is only reported on a full run, so that a
+    # pre-existing gap does not fail an unrelated submission.
+    if check_stale:
+        for slug in sorted(rows):
+            if not (REPO_ROOT / PROVIDERS_DIR / slug).is_dir():
+                report.error(
+                    "index",
+                    ROOT_README,
+                    f"the index lists '{slug}', which has no provider directory",
+                )
+
+
+# --------------------------------------------------------------------------
 # cross-provider checks
 # --------------------------------------------------------------------------
 
@@ -662,6 +790,7 @@ def main() -> int:
     for slug in slugs:
         validate_provider(slug, report, waived)
     check_no_shared_documents(report, slugs if not args.all else [])
+    check_index(report, slugs, check_stale=args.all)
 
     return report.emit()
 

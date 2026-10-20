@@ -17,7 +17,8 @@ the files in the directory exactly.
 <!--
 If the NNS registration proposal has not been submitted yet, put `pending` in the
 proposal ID field and open a follow-up pull request with the ID once the proposal
-has been submitted.
+has been submitted. That pull request updates this field and your row in the
+index in the root README, which has to say the same thing.
 -->
 
 ## Document manifest

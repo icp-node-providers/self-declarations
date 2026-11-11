@@ -13,5 +13,5 @@ proposals; no `AddOrRemoveNodeProvider` registration proposal exists for it.
 
 | File | Doc type | Date | SHA-256 |
 | --- | --- | --- | --- |
-| `blocktech-ventures-llc-self-declaration.pdf` | self-declaration | unknown | `5336e2b4e59742ae655f896d61453bd41883795d9677926abb4b5de9879abf5e` |
+| `blocktech-ventures-llc-self-declaration.pdf` | self-declaration | 2026-11-10 | `f72e344148ea5f45fffbd93c15d93f65db55797f5745099cc2058ff2f3350405` |
 | `blocktech-ventures-llc-proof-of-identity.pdf` | proof-of-identity | unknown | `bbd9ed4e8b49068f587014edb3aed85fe376de43d6e30794dbd92795fd073a8b` |

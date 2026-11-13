@@ -10,7 +10,7 @@
 
 | File | Doc type | Date | SHA-256 |
 | --- | --- | --- | --- |
-| `nodao-self-declaration.pdf` | self-declaration | unknown | `110bea1dfcaf3c8d1a5a7c7c6b453e60c95c70268d4093b74b0321e857bc316c` |
+| `nodao-self-declaration.pdf` | self-declaration | 2026-11-13 | `e3210aa5e56177564422a8371cbd2783c8abfb4cc0f59e89585022e63c7be9fa` |
 | `nodao-proof-of-identity-2.pdf` | proof-of-identity | unknown | `7de97153f2fa4801a39fb17cea6dac8f49327ce66ad43c1c2d317a9765e2872e` |
 | `nodao-proof-of-identity.pdf` | proof-of-identity | unknown | `ba4fd2ee3fe5856a8ed62fb30dd03ecb50e18d22bd040dc5b26dc2da1f11b318` |
 | `nodao-excess-node-handover-2.pdf` | excess-node-handover | unknown | `a24bcba0528bf63937b9de36a52c5c222a8c65d12774ac23973adbdd5df307ed` |

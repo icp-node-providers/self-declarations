@@ -13,5 +13,5 @@ proposals; no `AddOrRemoveNodeProvider` registration proposal exists for it.
 
 | File | Doc type | Date | SHA-256 |
 | --- | --- | --- | --- |
-| `giant-leaf-llc-self-declaration.pdf` | self-declaration | unknown | `e5710ff134063a7759532d67386d35f1c02d38e8903ae9ecfa37dfa97a5db29a` |
+| `giant-leaf-llc-self-declaration.pdf` | self-declaration | unknown | `d9957ae5f00a41ddf39a83df6ca648d51b51a26e1c19a1984038d6199364965f` |
 | `giant-leaf-llc-proof-of-identity.pdf` | proof-of-identity | unknown | `f58b0610cd7472e14336042eb517bd977d4c4d0b27086ade40a16776e7fd3b95` |

@@ -13,6 +13,6 @@ proposals; no `AddOrRemoveNodeProvider` registration proposal exists for it.
 
 | File | Doc type | Date | SHA-256 |
 | --- | --- | --- | --- |
-| `extragone-sa-self-declaration.pdf` | self-declaration | unknown | `3665e7a5033c564d33599b170b486fc01300e1a9d9d4e32578d248530523b4e2` |
+| `extragone-sa-self-declaration.pdf` | self-declaration | 2026-11-13 | `6b03e8f936a56bf1afd1eee6ed041deb5dbb898459fb47e3b83026bbb2046436` |
 | `extragone-sa-proof-of-identity.pdf` | proof-of-identity | unknown | `e8a435b81f6412debe94827b67d1aec40e023efae567d01881b0ea9fec6b3902` |
 | `extragone-sa-excess-node-handover.pdf` | excess-node-handover | unknown | `1587ef6d8a36202c2b8650e58762e6b8da4bcb58534222029440a6c46511f22d` |

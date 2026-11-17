@@ -187,7 +187,7 @@ once the proposal exists.
 | Bianca-Martina Rohner | [bianca-martina-rohner](node-providers/bianca-martina-rohner/) | `eatbv-nlydd-n655c-g7j7p-gnmpz-pszdg-6e6et-veobv-ftz2y-4m752-vqe` | [126367](https://dashboard.internetcomputer.org/proposal/126367) |
 | Bigger Capital | [bigger-capital](node-providers/bigger-capital/) | `7a4u2-gevsy-5c5fs-hsgri-n2kdz-dxxwf-btcfp-jykro-l4y7c-7xky2-aqe` | none |
 | Bitmoon | [bitmoon](node-providers/bitmoon/) | `mjnyf-lzqq6-s7fzb-62rqm-xzvge-5oa26-humwp-dvwxp-jxxkf-hoel7-fqe` | [125574](https://dashboard.internetcomputer.org/proposal/125574) |
-| Blockchain Development Labs | [blockchain-development-labs](node-providers/blockchain-development-labs/) | `7at4h-nhtvt-a4s55-jigss-wr2ha-ysxkn-e6w7x-7ggnm-qd3d5-ry66r-cae` | [7909](https://dashboard.internetcomputer.org/proposal/7909) |
+| Blockchain Development Labs Inc. | [blockchain-development-labs](node-providers/blockchain-development-labs/) | `7at4h-nhtvt-a4s55-jigss-wr2ha-ysxkn-e6w7x-7ggnm-qd3d5-ry66r-cae` | [7909](https://dashboard.internetcomputer.org/proposal/7909) |
 | Blockchain Innovation Group | [blockchain-innovation-group](node-providers/blockchain-innovation-group/) | `c3i3u-4ot4i-zino3-jrxre-7s426-dk2th-cvino-nznco-lkbpn-vl5of-4qe` | [138355](https://dashboard.internetcomputer.org/proposal/138355) |
 | BlockFinance | [blockfinance](node-providers/blockfinance/) | `c5svp-7pkmf-agz5x-536k7-r7rcw-4wn3a-eo7pt-ry7su-j42uq-bvnzf-iqe` | [135199](https://dashboard.internetcomputer.org/proposal/135199) |
 | BlockTech Ventures, LLC | [blocktech-ventures-llc](node-providers/blocktech-ventures-llc/) | `ks7ow-zvs7i-ratdk-azq34-zio2b-gbekj-qjicg-pfhp3-ovhgu-k5qql-dae` | none |
